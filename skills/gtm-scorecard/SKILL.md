@@ -17,9 +17,27 @@ No `pip install`. No API keys. No `gather.py`. Just web search.
 
 ### Step 0: Load GTM Context
 
-If `.agents/gtm-context.md` exists, read it for context about your own company, ICP, and GTM motion. This helps tailor the diagnosis — you'll spot gaps that matter to YOUR sales motion, and the outreach brief will reference your specific capabilities.
+If `.agents/gtm-context.md` exists, read it for context about your own company, ICP, and GTM motion. This helps tailor the **fixes and outreach** to your sales motion. It does NOT feed the diagnosis (see firewall below).
 
-If it doesn't exist, the scorecard still works — it just produces a generic diagnosis instead of one calibrated to your offering.
+If it doesn't exist, the scorecard still works — it just produces generic fixes instead of ones calibrated to your offering.
+
+### Step 0.5: Evidence Firewall (READ THIS — non-negotiable)
+
+The scores, red flags, diagnosis, and evidence section must be derived **ONLY from public data gathered during THIS run** (web search, the company's site, live JDs). Nothing else.
+
+**Do NOT let any of the following influence the scores, red flags, or diagnosis:**
+- Memory files, CLAUDE.md, sticky notes, or any persistent/ambient context about the user
+- Whether the user knows, is meeting, is selling to, or has a relationship with the target company
+- The user's own product/playbook (e.g. assuming the target needs the specific thing the user happens to sell)
+- Prior runs or training knowledge presented as if it were observed this run
+
+Why: pulling internal context inflates the output — it manufactures findings that fit the user's hopes instead of the target's reality. A scorecard the user walks into a real call with must reflect what's verifiable, or it burns credibility the moment the target contradicts it.
+
+**Allowed, with labels:**
+- Inferences beyond gathered data → mark `(inferred)` and phrase as a hypothesis to confirm, never as fact.
+- Fix prescriptions / outreach framing → may reference the user's capabilities, but ONLY from `.agents/gtm-context.md`, and only after the diagnosis is locked. Frame these as "your angle," not as something observed at the target.
+
+If you catch yourself writing a specific fix (named registries, data sources, tools) that came from knowing the user rather than from the target's public footprint, stop — either cut it or downgrade it to an open question.
 
 ---
 
