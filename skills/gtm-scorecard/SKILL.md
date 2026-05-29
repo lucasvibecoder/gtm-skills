@@ -103,6 +103,31 @@ cached data, not live intelligence.
 ```
 Also check: tool mentions in any JDs found. Companies reveal their stack in "requirements" sections.
 
+**Search 5b — Enrichment-stack JD sweep (CRITICAL for Dimension 2):**
+
+The enrichment/prospecting stack (Apollo, Clay, ZoomInfo, etc.) is **internal, seat-based
+tooling — it never loads on the public website**, so site fingerprinting and tech-stack
+search will not reveal it. The ONLY public surface where it leaks is the body of an
+ops/sales job description ("experience with Apollo/Outreach required"). Therefore:
+
+1. **Read EVERY live JD body, not just the 1-2 from Search 4.** Modern boards
+   (Greenhouse/Lever/Ashby) render JD detail pages as SPAs, so a plain page fetch
+   returns an empty stub. Two reliable ways to get the full text:
+   - **ATS posting API (fastest):** Ashby → `https://api.ashbyhq.com/posting-api/job-board/[slug]?includeCompensation=true`;
+     Greenhouse → `https://boards-api.greenhouse.io/v1/boards/[slug]/jobs?content=true`;
+     Lever → `https://api.lever.co/v0/postings/[slug]?mode=json`. These return full
+     description bodies as JSON.
+   - **Fallback — invoke the `web-scraping` skill** to render the SPA detail pages and
+     extract the full JD text when no public API is available.
+2. **Scan each body for this tool list and report tool → which role named it:**
+   Apollo, Clay, ZoomInfo, Clearbit, 6sense, Cognism, Lusha, LeadIQ, Outreach, Salesloft,
+   Gong, Chorus, Salesforce, Segment, Census, plus any CRM/automation tool.
+3. **Score Dimension 2 from this sweep, not from a guess.** If you have read all live JD
+   bodies and none name an enrichment tool, that is an *evidenced* low score (drop the
+   `(inferred)` tag) — phrase it as "across all N live JDs, the only revenue tool named is
+   X." The honest ceiling: you still cannot prove a tool is absent from internal seats, so
+   never claim "confirmed they don't use Apollo" — only "not named in any public JD."
+
 **Search 6 — Team structure:**
 ```
 [company name] "head of revenue operations" OR "VP sales operations" OR "director RevOps" LinkedIn
