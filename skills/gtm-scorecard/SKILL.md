@@ -39,6 +39,25 @@ Why: pulling internal context inflates the output — it manufactures findings t
 
 If you catch yourself writing a specific fix (named registries, data sources, tools) that came from knowing the user rather than from the target's public footprint, stop — either cut it or downgrade it to an open question.
 
+### Step 0.6: Tool & Tech-Stack Citation Rule (READ THIS — non-negotiable)
+
+Every time you name a specific tool, CRM, or platform as part of the target's stack, it MUST carry all three of:
+1. **A verbatim quote** of the exact sentence it came from (not a paraphrase, not a summary).
+2. **The source URL** it came from.
+3. **A live/dead tag** — `(live as of [date])` or `(removed/cached, [date])`. If the only place the text survives is a search-engine snippet of a page that now 404s, it is **dead** — say so, and cap your confidence accordingly. A dead source can never be stated as a present-tense fact ("they use X").
+
+**Hard rules — these exist because the skill has gotten them wrong:**
+
+- **Never collapse a "such as X, Y, or Z" list into a single asserted tool.** A line like *"experience with CRM software such as Zoho, Salesforce, or Hubspot"* lists examples of acceptable *candidate experience* — it does NOT tell you which CRM the company runs. The correct read is **"no specific CRM confirmed."** Report the whole list verbatim and label it as a qualification example, never "CRM: Zoho."
+
+- **Separate "what the candidate should know" from "what the company runs."** Tools in a *Requirements / Qualifications / Nice-to-have* section describe the **applicant**. Only tools in a *Responsibilities / "our stack" / "you'll use" / "we run on"* context describe the **actual stack**. Tag which section every tool came from. A tool that appears only in qualifications is **unconfirmed**, not detected.
+
+- **Never promote the first tool in a truncated search snippet.** If a snippet shows "...CRM such as Zoho" and cuts off, fetch the full line before citing anything — the list almost certainly continues. Picking the first word off a truncation is how "CRM: Zoho" happened off a line that actually named three.
+
+- **The scorecard is web-only — it uses NO enrichment/data providers.** If a tool claim ever traces to a provider (Apollo, BuiltWith, ZoomInfo tech-detection, a prior run, or memory), it is **out of bounds for the scorecard** — do not use it. Provider tech-detection is website-tag scraping (it flags marketing pixels/forms, not the sales stack) and is exactly the kind of unverifiable signal this skill is supposed to avoid. Eyeball-able beats provider-asserted, always.
+
+When you cannot meet the three-part citation bar, write the honest version: *"No [tool type] confirmed"* + whatever the verbatim source actually supports. A missing tool finding is fine. A fabricated-confidence one burns the call.
+
 ---
 
 ## Command: /gtm-scorecard
@@ -103,6 +122,8 @@ cached data, not live intelligence.
 ```
 Also check: tool mentions in any JDs found. Companies reveal their stack in "requirements" sections.
 
+**Apply Step 0.6 to everything you find here.** A tool named in a JD's *requirements/qualifications* describes the candidate, not the stack — it is unconfirmed. Only a *responsibilities / "you'll use" / "our stack"* mention confirms the company actually runs it. Carry verbatim quote + URL + live/dead tag for every tool you cite, and never distill a "such as X, Y, or Z" list down to one tool.
+
 **Search 5b — Enrichment-stack JD sweep (CRITICAL for Dimension 2):**
 
 The enrichment/prospecting stack (Apollo, Clay, ZoomInfo, etc.) is **internal, seat-based
@@ -142,8 +163,13 @@ Score each dimension 1-10. Cite specific evidence. Higher = healthier.
 - If data is missing, say so. Flag low-confidence scores with `(inferred)`.
 - "Not detected" ≠ "confirmed absent." Be explicit about what you couldn't verify.
 - Combine gathered data with your training knowledge of the company.
+- **Any tool/tech you cite as evidence must clear the Step 0.6 citation bar** (verbatim
+  quote + source URL + live/dead tag; qualifications-section tools are unconfirmed; never
+  collapse a "such as X, Y, or Z" list into one tool). If a score leans on a tool you
+  can't cite to that bar, lower your confidence and mark it `(inferred)`.
 - **Be opinionated.** A confident wrong score that sparks conversation is more valuable
-  than a hedged score that says nothing.
+  than a hedged score that says nothing — but opinionated ≠ fabricated. Be bold on the
+  *diagnosis*, never on *unverified facts*.
 
 ---
 
