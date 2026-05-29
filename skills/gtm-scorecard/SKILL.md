@@ -13,7 +13,7 @@ Diagnose any company's GTM infrastructure health from public data. Zero dependen
 **Output:** 3 red flags → 7-dimension score → diagnosis → priority fixes
 **With :prospect:** All of the above + best contact + outreach DM draft
 
-No `pip install`. No API keys. No `gather.py`. Just web search.
+No `pip install`. No `gather.py`. Core scorecard needs no API keys — just web search. Two **optional** Exa boosters (SPA job-description bodies + people discovery) activate only if `EXA_API_KEY` is set; without it the scorecard runs fully on web search. Note the firewall distinction: Exa **`/contents`** returns raw page text (eyeball-able — fine to cite), but Exa `/search` **structured entity fields** are provider-asserted — treat them like any provider claim under Step 0.6, never as confirmed stack.
 
 ### Step 0: Load GTM Context
 
@@ -138,8 +138,19 @@ ops/sales job description ("experience with Apollo/Outreach required"). Therefor
      Greenhouse → `https://boards-api.greenhouse.io/v1/boards/[slug]/jobs?content=true`;
      Lever → `https://api.lever.co/v0/postings/[slug]?mode=json`. These return full
      description bodies as JSON.
+   - **Exa `/contents` (optional, if `EXA_API_KEY` set) — preferred over rendering:** when no
+     ATS API is available, pull the JD page's crawled text directly. Cleaner and faster than
+     spinning up the web-scraping skill:
+     ```bash
+     curl -s -X POST https://api.exa.ai/contents \
+       -H "x-api-key: $EXA_API_KEY" -H "Content-Type: application/json" \
+       -d '{"urls":["<job-url>"],"text":{"maxCharacters":6000}}'
+     ```
+     Returns raw page text (eyeball-able — fine under Step 0.6). Verify the returned page's
+     domain matches the target; Exa occasionally returns a wrong-entity or binary page (~20%
+     noise in testing) — discard those.
    - **Fallback — invoke the `web-scraping` skill** to render the SPA detail pages and
-     extract the full JD text when no public API is available.
+     extract the full JD text when no public API is available and Exa returned nothing usable.
 2. **Scan each body for this tool list and report tool → which role named it:**
    Apollo, Clay, ZoomInfo, Clearbit, 6sense, Cognism, Lusha, LeadIQ, Outreach, Salesloft,
    Gong, Chorus, Salesforce, Segment, Census, plus any CRM/automation tool.
@@ -154,6 +165,14 @@ ops/sales job description ("experience with Apollo/Outreach required"). Therefor
 [company name] "head of revenue operations" OR "VP sales operations" OR "director RevOps" LinkedIn
 ```
 Extract: does a dedicated ops leader exist? How large is the sales org vs ops org?
+
+**Optional Exa booster (if `EXA_API_KEY` set)** — surfaces profile evidence faster than LinkedIn-via-WebSearch, and is strong on tiny / repositioned companies:
+```bash
+curl -s -X POST https://api.exa.ai/search \
+  -H "x-api-key: $EXA_API_KEY" -H "Content-Type: application/json" \
+  -d '{"query":"RevOps or Sales Operations leader at [company]","category":"people","numResults":5,"contents":{"highlights":true}}'
+```
+Cite the returned profile URL (eyeball-able). Per Step 0.6, treat Exa's structured title/role as a claim to confirm against the page, not an asserted fact. Pin to the target's own domain — names collide across companies.
 
 ### Step 3: Score Using the 7-Dimension Framework
 
@@ -401,6 +420,14 @@ If no VP Sales, try:
 ```
 [company name] founder OR CEO LinkedIn
 ```
+
+**Optional Exa booster (if `EXA_API_KEY` set):** `category:"people"` reliably surfaces the right contact even on small companies (in testing, one discovery query surfaced named sales/BD leaders across 5 sub-50-person pharmacies):
+```bash
+curl -s -X POST https://api.exa.ai/search \
+  -H "x-api-key: $EXA_API_KEY" -H "Content-Type: application/json" \
+  -d '{"query":"VP Sales, Head of Sales, or CRO at [company]","category":"people","numResults":8,"contents":{"highlights":true}}'
+```
+Use it for discovery; cite the profile URL. It won't give a verified email — that's a separate step.
 
 **Contact selection logic:**
 - SDR/ops imbalance → VP/Head of Sales (they feel the pain daily)
