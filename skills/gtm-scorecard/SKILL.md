@@ -435,6 +435,19 @@ Use it for discovery; cite the profile URL. It won't give a verified email — t
 - Company <50 people → CEO/Founder
 - Growth/scaling strain → VP Sales or Head of Growth
 
+**SEQUENCING GUARD — pick the contact LAST, not first (WHO after WHAT).** The heuristics
+above produce a *candidate*, not a target. Before treating anyone as the person to reach out
+to, you must have (1) **verified the company's actual operating model** and (2) **a validated
+angle** — then pick the contact who owns the pain *that angle* creates. Selecting a contact on
+a size/title heuristic before the angle exists is how you end up emailing the wrong person, or
+the right person with the wrong premise.
+- **Domain-expert founders are a trap.** "Company <50 → founder" often points at someone who
+  *built* the thing you're about to explain to them (e.g. an attorney-founder of a title
+  company). To them, your "insight" is their daily reality — an instant first-order-to-expert
+  miss. Verify *who the person actually is* (background/credentials, not just title) before drafting.
+- The pain-owner ≠ the most senior person. On bespoke sends the buyer is usually the person who
+  feels the gap (often a newly-hired GTM leader), not the founder who designed the model.
+
 ### Outreach DM Draft
 
 Write a message that follows these rules:
